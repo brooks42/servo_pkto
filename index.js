@@ -1,9 +1,9 @@
 var Discord = require("discord.js");
 const Servo = require('./lib/bot');
-
+require('dotenv').config()
 
 if (!process.env.DISCORD_TOKEN) {
-  console.log('Error: Specify SLACK_TOKEN in environment');
+  console.log('Error: Specify DISCORD_TOKEN in environment');
   process.exit(1);
 }
 

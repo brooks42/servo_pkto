@@ -1,10 +1,10 @@
 {
-  "name": "servo",
+  "name": "pokedex",
   "version": "0.1.0",
-  "description": "A Discord bot that can return Magic card information and pictures.", 
+  "description": "A Discord bot that can return Magic card information and pictures, but tweaked for Pokécube support.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +19,10 @@
   "homepage": "https://github.com/scryfall/servo#readme",
   "dependencies": {
     "discord.js": "^11.0.0",
+    "dotenv": "^16.0.3",
     "request": "^2.79.0",
     "request-promise-native": "^1.0.3",
-    "urijs": "^1.18.4"
+    "urijs": "^1.18.4",
+    "xml2json": "^0.12.0"
   }
 }
