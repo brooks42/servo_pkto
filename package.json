@@ -4,7 +4,7 @@
   "description": "A Discord bot that can return Magic card information and pictures, but tweaked for Pokécube support.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon index.js --trace-deprecation",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
