@@ -1,17 +1,17 @@
-import { Client } from 'discord.js'
+import { Client, Embed, EmbedBuilder, Message } from 'discord.js'
 import PktoUtils from './pokecube_cards'
-
-const ResponseTypes = require('./response-types')
+import { TextResponse, ImageResponse, PokemonResponse } from './response-types'
 
 export class Messenger {
     pattern = /\[\[([^\]]+)\]\]/g
 
     promises: Promise<unknown>[]
     client: Client
-    msg: any // what is this wtf
+    msg: Message<boolean>
     pktoList: PktoUtils
 
-    constructor(client: Client, msg: any, pktoList: PktoUtils) {
+    constructor(client: Client, msg: Message<boolean>, pktoList: PktoUtils) {
+        console.log("messenger init'd")
         this.promises = []
         this.client = client
         this.msg = msg
@@ -24,7 +24,7 @@ export class Messenger {
                     this.negotiateMatch(match)
 
                 if (isPokemon) {
-                    console.log("who's that pokemon")
+                    console.log("\nwho's that pokemon?")
 
                     let cardInfo = this.pktoList.responseForCardName(cardName)
 
@@ -45,9 +45,10 @@ export class Messenger {
             })
         }
         Promise.all(this.promises)
-            .then((embeds) => {
+            .then((embeds: EmbedBuilder[]) => {
+                console.log(`embeds ${JSON.stringify(embeds)}`)
                 embeds.forEach((embed) => {
-                    this.msg.channel.sendEmbed(embed)
+                    this.msg.channel.send({ embeds: [embed] })
                 })
             })
             .catch((err) => console.log(err))
@@ -65,7 +66,9 @@ export class Messenger {
         if (!cardName.includes('(MTG)')) {
             if (this.pktoList.cardForName(cardName) != null) {
                 console.log(
-                    `it's a wild ${this.pktoList.cardForName(cardName)}`
+                    `it's a wild ${JSON.stringify(
+                        this.pktoList.cardForName(cardName)
+                    )}`
                 )
                 var result = this.pktoList.responseForCardName(cardName)
                 return {
@@ -108,11 +111,11 @@ export class Messenger {
         })
     }
 
-    defaultResponseType = ResponseTypes.TextResponse
+    defaultResponseType = TextResponse
 
     specialResponseTypes = {
-        '!': ResponseTypes.ImageResponse,
+        '!': ImageResponse,
     }
 
-    pokemonResponseType = ResponseTypes.PokemonResponse // TODO: this might be able to just be a special response type?
+    pokemonResponseType = PokemonResponse // TODO: this might be able to just be a special response type?
 }

@@ -1,4 +1,3 @@
-// var Discord = require('discord.js')
 require('dotenv').config()
 
 import express from 'express'
@@ -27,5 +26,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
-
-console.log('hello typescript :)')

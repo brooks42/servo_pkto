@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Messenger = void 0;
-const ResponseTypes = require('./response-types');
+const response_types_1 = require("./response-types");
 class Messenger {
+    pattern = /\[\[([^\]]+)\]\]/g;
+    promises;
+    client;
+    msg;
+    pktoList;
     constructor(client, msg, pktoList) {
-        this.pattern = /\[\[([^\]]+)\]\]/g;
-        this.defaultResponseType = ResponseTypes.TextResponse;
-        this.specialResponseTypes = {
-            '!': ResponseTypes.ImageResponse,
-        };
-        this.pokemonResponseType = ResponseTypes.PokemonResponse; // TODO: this might be able to just be a special response type?
+        console.log("messenger init'd");
         this.promises = [];
         this.client = client;
         this.msg = msg;
@@ -19,7 +19,7 @@ class Messenger {
             matches.forEach((match) => {
                 const { cardName, responseType, isPokemon, pokemonInfo } = this.negotiateMatch(match);
                 if (isPokemon) {
-                    console.log("who's that pokemon");
+                    console.log("\nwho's that pokemon?");
                     let cardInfo = this.pktoList.responseForCardName(cardName);
                     const promise = this.makePromise(cardName, responseType, cardInfo);
                     this.promises.push(promise);
@@ -32,8 +32,9 @@ class Messenger {
         }
         Promise.all(this.promises)
             .then((embeds) => {
+            console.log(`embeds ${JSON.stringify(embeds)}`);
             embeds.forEach((embed) => {
-                this.msg.channel.sendEmbed(embed);
+                this.msg.channel.send({ embeds: [embed] });
             });
         })
             .catch((err) => console.log(err));
@@ -46,7 +47,7 @@ class Messenger {
         // for cards in both, like Gloom, we'll prefer our cards over MTG cards unless the user appends (MTG)
         if (!cardName.includes('(MTG)')) {
             if (this.pktoList.cardForName(cardName) != null) {
-                console.log(`it's a wild ${this.pktoList.cardForName(cardName)}`);
+                console.log(`it's a wild ${JSON.stringify(this.pktoList.cardForName(cardName))}`);
                 var result = this.pktoList.responseForCardName(cardName);
                 return {
                     cardName,
@@ -83,6 +84,11 @@ class Messenger {
             }
         });
     }
+    defaultResponseType = response_types_1.TextResponse;
+    specialResponseTypes = {
+        '!': response_types_1.ImageResponse,
+    };
+    pokemonResponseType = response_types_1.PokemonResponse; // TODO: this might be able to just be a special response type?
 }
 exports.Messenger = Messenger;
 //# sourceMappingURL=messenger.js.map

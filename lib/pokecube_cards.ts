@@ -1,5 +1,6 @@
 import xml2json from 'xml2json'
 import request from 'request-promise-native'
+import { CardEmbedInfo } from './response-types'
 
 export interface CardDef {
     name: string
@@ -91,7 +92,7 @@ export default class PktoUtils {
         return null // no matches
     }
 
-    responseForCardName(name) {
+    responseForCardName(name: string): CardEmbedInfo {
         var card = this.cardForName(name)[0]
 
         console.log(JSON.stringify(card))
@@ -104,9 +105,7 @@ export default class PktoUtils {
                 card.prop.pt ?? ''
             }`,
             url: card.set.picURL,
-            thumbnail: {
-                url: card.set.picURL,
-            },
+            thumbnail: card.set.picURL,
         }
 
         /*
@@ -145,7 +144,7 @@ export default class PktoUtils {
 
         for (var letter of components) {
             var symbolFinished = false
-            console.log(`letter = ${letter}`)
+            // console.log(`letter = ${letter}`)
 
             if (letter === '{') {
                 parsingHybrid = true
@@ -180,7 +179,7 @@ export default class PktoUtils {
             lastElement = letter
 
             if (symbolFinished) {
-                console.log(`tranformed to ${currentSymbol}`)
+                // console.log(`tranformed to ${currentSymbol}`)
                 var element = `${
                     currentSymbol.startsWith('{') ? '' : '{'
                 }${currentSymbol}${currentSymbol.endsWith('}') ? '' : '}'}`
