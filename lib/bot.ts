@@ -35,9 +35,6 @@ export default class Servo {
             console.log(`${client.user.username} is online`)
         })
         client.on('messageCreate', (msg: Message<boolean>) => {
-            console.log(
-                `messageCreate recieved message ${JSON.stringify(msg.embeds)}`
-            )
             new Messenger(client, msg, this.cardList)
         })
         client.login(token)

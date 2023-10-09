@@ -18,26 +18,7 @@ class PktoUtils {
         this.pokecubeFile = xml2json_1.default.toJson(xml, { object: true });
         this.cards = this.pokecubeFile.cockatrice_carddatabase.cards.card;
     }
-    async downloadPokecubeCardXml() {
-        var xml = null;
-        await new Promise((resolve, reject) => {
-            (0, request_promise_native_1.default)({
-                method: 'GET',
-                resolveWithFullResponse: true,
-                uri: 'https://brooks42.github.io/pkto/pkto_cockatrice.xml',
-            })
-                .then((response) => {
-                console.log(`got cockatrice file`);
-                xml = response.body;
-                resolve(response);
-            })
-                .catch((err) => {
-                console.log(`failed to load cockatrice file with error ${err}`);
-                resolve(err.response);
-            });
-        });
-        return xml;
-    }
+    // downloads the PJTO card list, since that includes all of PKTO as well
     async downloadPJTOPokecubeCardXml() {
         var xml = null;
         await new Promise((resolve, reject) => {
@@ -65,7 +46,8 @@ class PktoUtils {
         // check whether the card name is in our list, or if the card name + (PKTO) is in the list for cards like Gloom
         var array = this.cards.filter((card) => {
             return (card.name.toLowerCase() === name.toLowerCase() ||
-                card.name.toLowerCase() === `${name.toLowerCase()} (pkto)`);
+                card.name.toLowerCase() === `${name.toLowerCase()} (pkto)` ||
+                card.name.toLowerCase() === `${name.toLowerCase()} (pjto)`);
         });
         if (array.length >= 1) {
             return array;

@@ -22,31 +22,7 @@ export default class PktoUtils {
         this.cards = this.pokecubeFile.cockatrice_carddatabase.cards.card
     }
 
-    async downloadPokecubeCardXml() {
-        var xml = null
-
-        await new Promise((resolve, reject) => {
-            request({
-                method: 'GET',
-                resolveWithFullResponse: true,
-                uri: 'https://brooks42.github.io/pkto/pkto_cockatrice.xml',
-            })
-                .then((response) => {
-                    console.log(`got cockatrice file`)
-                    xml = response.body
-                    resolve(response)
-                })
-                .catch((err) => {
-                    console.log(
-                        `failed to load cockatrice file with error ${err}`
-                    )
-                    resolve(err.response)
-                })
-        })
-
-        return xml
-    }
-
+    // downloads the PJTO card list, since that includes all of PKTO as well
     async downloadPJTOPokecubeCardXml() {
         var xml = null
 
@@ -81,7 +57,8 @@ export default class PktoUtils {
         var array = this.cards.filter((card) => {
             return (
                 card.name.toLowerCase() === name.toLowerCase() ||
-                card.name.toLowerCase() === `${name.toLowerCase()} (pkto)`
+                card.name.toLowerCase() === `${name.toLowerCase()} (pkto)` ||
+                card.name.toLowerCase() === `${name.toLowerCase()} (pjto)`
             )
         })
 

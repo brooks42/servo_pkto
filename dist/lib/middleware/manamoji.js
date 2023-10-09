@@ -36,9 +36,7 @@ COLORS.forEach((c) => {
 NUMBERS.forEach((n) => {
     _(n, undefined);
 });
-console.log(`all manamoji substitutions: ${JSON.stringify(substitutions)}`);
 function manamoji(client, str) {
-    console.log(`all the client emojis listed: ${JSON.stringify(client.emojis.valueOf())}`);
     const re = new RegExp(Object.keys(substitutions)
         .map((v) => {
         return v.replace('{', '\\{').replace('}', '\\}');
@@ -46,14 +44,12 @@ function manamoji(client, str) {
         .join('|'), 'gi');
     let manafied = str.replace(re, (matched) => {
         const emoji = client.emojis.cache.find((emoji) => emoji.name === checkSub(matched));
-        console.log(`manamoji ${matched} resolved to ${JSON.stringify(emoji)}`);
         return emoji ? emoji.toString() : matched;
     });
     return manafied;
 }
 exports.default = manamoji;
 function checkSub(matched) {
-    console.log(`checksub replacing ${matched} with ${substitutions[matched]}`);
     return substitutions[matched];
 }
 //# sourceMappingURL=manamoji.js.map
