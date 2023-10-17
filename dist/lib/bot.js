@@ -16,6 +16,9 @@ class Servo {
         this.client = this.makeClient(token);
         this.cardList = new pokecube_cards_1.default();
     }
+    resetCachePktoCache() {
+        this.cardList = new pokecube_cards_1.default();
+    }
     makeClient(token) {
         console.log(`Client created...`);
         const clientOptions = {
@@ -35,7 +38,6 @@ class Servo {
             console.log(`${client.user.username} is online`);
         });
         client.on('messageCreate', (msg) => {
-            console.log(`messageCreate recieved message ${JSON.stringify(msg.embeds)}`);
             new messenger_1.Messenger(client, msg, this.cardList);
         });
         client.login(token);

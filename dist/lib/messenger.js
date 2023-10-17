@@ -32,7 +32,6 @@ class Messenger {
         }
         Promise.all(this.promises)
             .then((embeds) => {
-            console.log(`embeds ${JSON.stringify(embeds)}`);
             embeds.forEach((embed) => {
                 this.msg.channel.send({ embeds: [embed] });
             });

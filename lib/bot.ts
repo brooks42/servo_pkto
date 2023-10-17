@@ -14,6 +14,10 @@ export default class Servo {
         this.cardList = new PktoUtils()
     }
 
+    resetCachePktoCache() {
+        this.cardList = new PktoUtils()
+    }
+
     makeClient(token: string): Client {
         console.log(`Client created...`)
         const clientOptions: ClientOptions = {
