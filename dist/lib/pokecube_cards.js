@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const xml2json_1 = __importDefault(require("xml2json"));
 const request_promise_native_1 = __importDefault(require("request-promise-native"));
+const replacements_1 = require("./replacements");
 class PktoUtils {
     pokecubeFile;
     cards;
@@ -43,6 +44,10 @@ class PktoUtils {
         if (name.includes('(MTG)')) {
             return null;
         }
+        // é
+        // test replacements
+        console.log(`replacing ${name} with ${replacements_1.replacements[name]}`);
+        name = replacements_1.replacements[name] ?? name;
         // check whether the card name is in our list, or if the card name + (PKTO) is in the list for cards like Gloom
         var array = this.cards.filter((card) => {
             return (card.name.toLowerCase() === name.toLowerCase() ||

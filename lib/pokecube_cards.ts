@@ -1,6 +1,7 @@
 import xml2json from 'xml2json'
 import request from 'request-promise-native'
 import { CardEmbedInfo } from './response-types'
+import { replacements } from './replacements'
 
 export interface CardDef {
     name: string
@@ -52,6 +53,11 @@ export default class PktoUtils {
         if (name.includes('(MTG)')) {
             return null
         }
+
+        // é
+        // test replacements
+        console.log(`replacing ${name} with ${replacements[name]}`)
+        name = replacements[name] ?? name
 
         // check whether the card name is in our list, or if the card name + (PKTO) is in the list for cards like Gloom
         var array = this.cards.filter((card) => {
