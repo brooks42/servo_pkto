@@ -47,7 +47,7 @@ class PktoUtils {
         // é
         // test replacements
         console.log(`replacing ${name} with ${replacements_1.replacements[name]}`);
-        name = replacements_1.replacements[name] ?? name;
+        name = replacements_1.replacements[name.toLowerCase()] ?? name;
         // check whether the card name is in our list, or if the card name + (PKTO) is in the list for cards like Gloom
         var array = this.cards.filter((card) => {
             return (card.name.toLowerCase() === name.toLowerCase() ||
@@ -60,11 +60,12 @@ class PktoUtils {
         return null; // no matches
     }
     responseForCardName(name) {
-        var card = this.cardForName(name)[0];
+        let card = this.cardForName(name)[0];
         console.log(JSON.stringify(card));
+        let loyalty = card.loyalty ?? null;
         return {
             title: `${card.name} ${this.transformManaCost(card.prop.manacost ?? '')}`,
-            description: `${card.prop.type}\n${card.text}\n${card.prop.pt ?? ''}`,
+            description: `${card.prop.type}\n${card.text}\n${card.prop.pt ?? ''}${loyalty ? `Loyalty: ${loyalty}` : ''}`,
             url: card.set.picURL,
             thumbnail: card.set.picURL,
         };
