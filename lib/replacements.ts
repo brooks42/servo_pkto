@@ -98,3 +98,12 @@ replacements['mr mime'] = 'mr. mime'
 // farfetch'd
 replacements['farfetchd'] = "farfetch'd"
 replacements['farfetched'] = "farfetch'd"
+
+// wobbuffett
+replacements['wobuffet'] = "wobbuffet"
+replacements['wobby'] = "wobbuffet"
+replacements['wo'] = "wobbuffet"
+replacements['wobufet'] = "wobbuffet"
+replacements['wobuffet'] = "wobbuffet"
+replacements['wobbyboi'] = "wobbuffet"
+replacements['wobo'] = "wobbuffet"
