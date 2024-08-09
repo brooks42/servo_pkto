@@ -74,4 +74,12 @@ exports.replacements['mr mime'] = 'mr. mime';
 // farfetch'd
 exports.replacements['farfetchd'] = "farfetch'd";
 exports.replacements['farfetched'] = "farfetch'd";
+// wobbuffett
+exports.replacements['wobuffet'] = "wobbuffet";
+exports.replacements['wobby'] = "wobbuffet";
+exports.replacements['wo'] = "wobbuffet";
+exports.replacements['wobufet'] = "wobbuffet";
+exports.replacements['wobuffet'] = "wobbuffet";
+exports.replacements['wobbyboi'] = "wobbuffet";
+exports.replacements['wobo'] = "wobbuffet";
 //# sourceMappingURL=replacements.js.map

@@ -11,7 +11,6 @@ export class TextResponse {
     cardName: string
     middleware = [utm]
     url = 'https://api.scryfall.com/cards/named'
-
     constructor(client, cardName) {
         this.client = client
         this.cardName = cardName
@@ -34,6 +33,10 @@ export class TextResponse {
                 method: 'GET',
                 resolveWithFullResponse: true,
                 uri: this.makeUrl(),
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
+                    'Accept': 'application/json;q=0.9,*/*;q=0.8'
+                },
             })
                 .then((response) => {
                     resolve(response)
